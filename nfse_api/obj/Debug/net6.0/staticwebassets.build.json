@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "vEhirH6YLsvBvPhdo9tOhZX/LGd8AZK23PC7JtEqpv4=",
+  "Source": "nfse_api",
+  "BasePath": "_content/nfse_api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
