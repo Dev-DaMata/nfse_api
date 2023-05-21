@@ -5,8 +5,8 @@ using System.Data.SqlClient;
 
 namespace nfse_api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class NfseController : ControllerBase
     {
         private readonly IConfiguration _config;
@@ -14,16 +14,18 @@ namespace nfse_api.Controllers
         public NfseController(IConfiguration config) {
             _config = config;
         }
-
+        
         [HttpGet]
-        public async Task<ActionResult<List<nfse>>> GetAllNfse()
+        [Route("getNfse")]
+        public async Task<ActionResult<List<nfse>>> getNfse()
         {
             using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             var nfse = await connection.QueryAsync<nfse>("select * from NotaFiscal");
             return Ok(nfse);
         }
-
-        [HttpGet("{cpf_cnpj_prestador_servico}")]
+       
+        [HttpGet]
+        [Route("getCnpj")]
         public async Task<ActionResult<nfse>> GetCnpj (string cpf_cnpj_prestador_servico)
         {
             using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
@@ -33,6 +35,7 @@ namespace nfse_api.Controllers
         }
 
         [HttpPost]
+        [Route("CreateNfse")]
         public async Task<ActionResult<List<nfse>>> CreateNfse(nfse nfse)
         {
             using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
