@@ -31,5 +31,15 @@ namespace nfse_api.Controllers
              new { cpf_cnpj_prestador_servico = cpf_cnpj_prestador_servico }    );
             return Ok(nfse);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<List<nfse>>> CreateNfse(nfse nfse)
+        {
+            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            await connection.ExecuteAsync("INSERT INTO NotaFiscal (nome_prestador_servico, cpf_cnpj_prestador_servico, inscricao_prestador_servico, nome_tomador_servico, cpf_cnpj_tomador_servico, inscricao_tomador_servico, numero_nfse, data_emissao_nfse, valor_total_nfse, descricao_servico_prestado, valor_unitario_servico, quantidade_unidades_servico, valor_total_servico, ISS, aliquota_iss, valor_iss_pago, Observacoes) values (@nome_prestador_servico, @cpf_cnpj_prestador_servico, @inscricao_prestador_servico, @nome_tomador_servico, @cpf_cnpj_tomador_servico, @inscricao_tomador_servico, @numero_nfse, @data_emissao_nfse, @valor_total_nfse, @descricao_servico_prestado, @valor_unitario_servico, @quantidade_unidades_servico, @valor_total_servico, @ISS, @aliquota_iss, @valor_iss_pago, @Observacoes)",
+                nfse);
+            return Ok(nfse);
+        }
+
     }
 }
